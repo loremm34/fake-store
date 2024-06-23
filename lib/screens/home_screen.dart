@@ -10,6 +10,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -24,8 +26,37 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
           leading: AppBarIcons(function: () {}, icon: IconlyBold.category),
         ),
-        body: Center(
-          child: Text("Welcome to this course"),
+        body: Column(
+          children: [
+            const SizedBox(
+              height: 18,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _searchController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).cardColor,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        width: 1,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                    suffixIcon: const Icon(IconlyLight.search),
+                    hintText: "Search",
+                    filled: true,
+                    fillColor: Theme.of(context).cardColor),
+              ),
+            ),
+          ],
         ),
       ),
     );
