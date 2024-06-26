@@ -39,16 +39,18 @@ class FeedsWidget extends StatelessWidget {
                     Flexible(
                       child: RichText(
                         text: TextSpan(
-                            text: '\$',
-                            style: const TextStyle(
-                                color: Color.fromRGBO(33, 150, 243, 1)),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: "168.00",
-                                  style: TextStyle(
-                                      color: lightTextColor,
-                                      fontWeight: FontWeight.w600)),
-                            ]),
+                          text: '\$',
+                          style: const TextStyle(
+                            color: Color.fromRGBO(33, 150, 243, 1),
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: "168.00",
+                                style: TextStyle(
+                                    color: lightTextColor,
+                                    fontWeight: FontWeight.w600)),
+                          ],
+                        ),
                       ),
                     ),
                     const Icon(IconlyBold.heart),

@@ -40,74 +40,76 @@ class _HomeScreenState extends State<HomeScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-          appBar: AppBar(
-            // elevation: 4,
-            title: const Text('Home'),
-            leading: AppBarIcons(
+        appBar: AppBar(
+          // elevation: 4,
+          title: const Text('Home'),
+          leading: AppBarIcons(
+            function: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  child: const CategoriesScreen(),
+                ),
+              );
+            },
+            icon: IconlyBold.category,
+          ),
+          actions: [
+            AppBarIcons(
               function: () {
                 Navigator.push(
                   context,
                   PageTransition(
                     type: PageTransitionType.fade,
-                    child: const CategoriesScreen(),
+                    child: const UsersScreen(),
                   ),
                 );
               },
-              icon: IconlyBold.category,
+              icon: IconlyBold.user3,
             ),
-            actions: [
-              AppBarIcons(
-                function: () {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.fade,
-                      child: const UsersScreen(),
-                    ),
-                  );
-                },
-                icon: IconlyBold.user3,
+          ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 18,
               ),
-            ],
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 18,
+              TextField(
+                controller: _textEditingController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  hintText: "Search",
+                  filled: true,
+                  fillColor: Theme.of(context).cardColor,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).cardColor,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                      width: 1,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+                  suffixIcon: Icon(
+                    IconlyLight.search,
+                    color: lightIconsColor,
+                  ),
                 ),
-                TextField(
-                  controller: _textEditingController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      hintText: "Search",
-                      filled: true,
-                      fillColor: Theme.of(context).cardColor,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).cardColor,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                      ),
-                      suffixIcon: Icon(
-                        IconlyLight.search,
-                        color: lightIconsColor,
-                      )),
-                ),
-                const SizedBox(
-                  height: 18,
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(children: [
+              ),
+              const SizedBox(
+                height: 18,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
                       SizedBox(
                         height: size.height * 0.25,
                         child: Swiper(
@@ -149,24 +151,27 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 3,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 0.0,
-                                  mainAxisSpacing: 0.0,
-                                  childAspectRatio: 0.7),
-                          itemBuilder: (ctx, index) {
-                            return const FeedsWidget();
-                          })
-                    ]),
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 3,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 0.0,
+                                mainAxisSpacing: 0.0,
+                                childAspectRatio: 0.7),
+                        itemBuilder: (ctx, index) {
+                          return const FeedsWidget();
+                        },
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-          )),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
