@@ -1,4 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:fake_store/services/api_handler.dart';
+import 'package:fake_store/widgets/feeds_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:page_transition/page_transition.dart';
@@ -6,6 +8,7 @@ import 'package:fake_store/consts/global_colors.dart';
 import 'package:fake_store/screens/categories_screen.dart';
 import 'package:fake_store/screens/feeds_screen.dart';
 import 'package:fake_store/screens/users_screen.dart';
+import 'package:fake_store/models/products_model.dart';
 
 import '../widgets/appbar_icons.dart';
 import '../widgets/feeds_widget.dart';
@@ -20,6 +23,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late TextEditingController _textEditingController;
+  List<ProductsModel> productsList = [];
   @override
   void initState() {
     _textEditingController = TextEditingController();
@@ -27,9 +31,19 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    getProducts();
+  }
+
+  @override
   void dispose() {
     _textEditingController.dispose();
     super.dispose();
+  }
+
+  Future<void> getProducts() async {
+    productsList = await APIHandler.getAllProducts();
+    setState(() {});
   }
 
   @override
@@ -150,20 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-                      GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 3,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 0.0,
-                                mainAxisSpacing: 0.0,
-                                childAspectRatio: 0.7),
-                        itemBuilder: (ctx, index) {
-                          return const FeedsWidget();
-                        },
-                      )
+                      FeedsGridWidget(productsList: productsList),
                     ],
                   ),
                 ),
